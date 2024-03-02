@@ -1,0 +1,27 @@
+.colorback{
+    background-color: #F2F2F2;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    padding-bottom: 20px;
+}
+.maincom{
+    /* margin-top: 20px; */
+    padding-top: 20px;
+}
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.content{
+    font-size: x-large;
+}
+.paragraph{
+    text-align: center;
+}
+.dec{
+    text-decoration: none;
+    color: black;
+}

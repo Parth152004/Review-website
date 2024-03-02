@@ -1,0 +1,48 @@
+/* RatingComponent.css */
+
+.rating-component {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .heading {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .rating-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    text-decoration: none;
+  }
+  
+  .rating-label {
+    margin-right: 10px;
+  }
+  
+  .star {
+    cursor: pointer;
+    font-size: 20px;
+    color: #ccc;
+  }
+  
+  .star.selected {
+    color: #ffbb00;
+  }
+  
+  .overall-rating {
+    margin-left: auto;
+    font-size: 16px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  

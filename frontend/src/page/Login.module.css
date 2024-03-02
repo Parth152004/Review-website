@@ -1,0 +1,19 @@
+.contain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.loginconainer{
+    height: 50vh;
+    width: 50vw;
+    background-color: #F2F2F2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.loginfix{
+    width: 40%;
+    height: 90%;
+}

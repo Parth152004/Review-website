@@ -1,0 +1,39 @@
+.contain{
+    display: flex;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap; 
+    width: 100%;
+    margin: 0 auto; /* Center the container horizontally */
+  }
+  
+  .left {
+    flex: 1.5; /* Allocate 40% space to the left side */
+    padding: 1rem;
+    background-color: #f0f0f0; /* Optional background color for contrast */
+  }
+  
+  .right {
+    flex: 3; /* Allocate 60% space to the right side */
+    padding: 1rem;
+    background-color: #fff; /* Optional background color for contrast */
+  }
+  
+  @media (max-width: 768px) {
+    /* Responsive adjustments for smaller screens */
+    .container {
+      flex-direction: column; /* Stack left and right divs vertically */
+    }
+  
+    .left,
+    .right {
+      flex: 1; /* Allocate equal width to both divs */
+    }
+  }
+  
+
+  .dec{
+    text-decoration: none;
+    color: black;
+  }
