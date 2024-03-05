@@ -10,7 +10,7 @@ export default function Navbar() {
         style={{ backgroundColor: 'rgba(0, 0, 0, 1)' }}
       >
         <div className="container-fluid container">
-          <Link className="navbar-brand text-white" to="/">
+          <Link className="navbar-brand text-white" to="/Home">
             Reviewsite
           </Link>
           <button
@@ -49,26 +49,6 @@ export default function Navbar() {
                   to="/Addmovie"
                 >
                   AddMovie
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className={`nav-link text-white ${
-                    useLocation().pathname === '/Apps' ? 'active' : ''
-                  } `}
-                  to="/Login"
-                >
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className={`nav-link text-white ${
-                    useLocation().pathname === '/Apps' ? 'active' : ''
-                  } `}
-                  to="/Signup"
-                >
-                  Signin
                 </Link>
               </li>
             </ul>

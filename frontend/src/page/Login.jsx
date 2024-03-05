@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from '../Component/Navbar'
 import Style from './Login.module.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Login() {
   const [user, setUser] = useState({ email: '', password: '' })
   const navigate = useNavigate()
-  const [userId, setUserId] = useState(null) // Initialize userId state to null
 
   const handleChange = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value })
@@ -14,7 +12,6 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     // Validate user input (optional)
     if (!user.email || !user.password) {
       console.error('Please fill in all fields.')
@@ -31,12 +28,10 @@ export default function Login() {
       if (response.ok) {
         const responseData = await response.json()
         console.log('Success: You logged in.', responseData)
-
         // Update userId state only if the response contains a valid id
         if (responseData.id) {
-          setUserId(responseData.id)
-          console.log(userId)
-          navigate('/') // Assuming '/dashboard' is the route after login
+          localStorage.setItem('userId', responseData.id)
+          navigate('/Home')
         } else {
           console.error('Missing user ID in response data.')
         }
@@ -48,19 +43,10 @@ export default function Login() {
       console.error('Error:', error.message)
     }
   }
-
-  // Check if userId is successfully fetched after login
-  useEffect(() => {
-    if (userId) {
-      console.log('User ID:', userId) // Log for verification
-    }
-  }, [userId])
   return (
     <>
       <div>
-        <Navbar />
-        <div className={`container ${Style.contain}`}>
-          <h1 className="m-3">Read reviews. Write reviews.</h1>
+        <div className={`${Style.contain}`}>
           <div className={`${Style.loginconainer}`}>
             <h3>Login </h3>
             <form className={`${Style.loginfix}`} onSubmit={handleSubmit}>
@@ -97,6 +83,9 @@ export default function Login() {
               <button type="submit" className="btn btn-dark btn-block mb-4">
                 Login
               </button>
+              <p>
+                Don't have acount ?<Link to={'/Signup'}>Signup</Link>
+              </p>
             </form>
           </div>
         </div>

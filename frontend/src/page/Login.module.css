@@ -1,8 +1,9 @@
 .contain{
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
+    height: 100vh;
 }
 .loginconainer{
     height: 50vh;

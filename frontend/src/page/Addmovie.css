@@ -1,0 +1,25 @@
+.add-movie-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 90vh;
+}
+.from-cont{
+    background-color: #F2F2F2;
+    width: 50vw;
+    height: 50vh;
+}
+.from-cont h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px;
+}
+button{
+    margin: 20px 35%;
+}

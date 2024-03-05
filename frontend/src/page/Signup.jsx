@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from '../Component/Navbar'
 import Style from './Login.module.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Signup() {
   const [user, setUser] = useState({
@@ -38,8 +38,9 @@ export default function Signup() {
 
       if (response.ok) {
         const responseData = await response.json()
+        localStorage.setItem('userId', responseData.id)
         console.log('Success: User Created.')
-        navigate('/')
+        navigate('/Home')
       } else {
         const errorData = await response.json()
         console.error('Error:', errorData.error)
@@ -52,7 +53,6 @@ export default function Signup() {
   return (
     <>
       <div>
-        <Navbar />
         <div className={`container ${Style.contain}`}>
           <h1 className="m-3">Read reviews. Write reviews.</h1>
           <div className={`${Style.loginconainer}`}>
@@ -104,8 +104,11 @@ export default function Signup() {
               </div>
 
               <button type="submit" className="btn btn-dark btn-block mb-4">
-                Login
+                Signup
               </button>
+              <p>
+                AllRady have acount ? <Link to={'/'}>Login</Link>
+              </p>
             </form>
           </div>
         </div>
