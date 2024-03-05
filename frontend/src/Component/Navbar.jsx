@@ -43,21 +43,12 @@ export default function Navbar() {
               <li className="nav-item">
                 <Link
                   className={`nav-link text-white ${
-                    useLocation().pathname === '/Books' ? 'active' : ''
-                  } `}
-                  to="/Books"
+                    useLocation().pathname === '/Movie' ? 'active' : ''
+                  }`}
+                  aria-current="page"
+                  to="/Addmovie"
                 >
-                  Books
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className={`nav-link text-white ${
-                    useLocation().pathname === '/Apps' ? 'active' : ''
-                  } `}
-                  to="/Apps"
-                >
-                  Apps
+                  AddMovie
                 </Link>
               </li>
               <li className="nav-item">
@@ -75,7 +66,7 @@ export default function Navbar() {
                   className={`nav-link text-white ${
                     useLocation().pathname === '/Apps' ? 'active' : ''
                   } `}
-                  to="/Apps"
+                  to="/Signup"
                 >
                   Signin
                 </Link>

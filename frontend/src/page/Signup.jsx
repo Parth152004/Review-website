@@ -1,45 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Navbar from '../Component/Navbar'
 import Style from './Login.module.css'
 import { useNavigate } from 'react-router-dom'
 
-export default function Login() {
-  const [user, setUser] = useState({ email: '', password: '' })
+export default function Signup() {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
   const navigate = useNavigate()
-  const [userId, setUserId] = useState(null) // Initialize userId state to null
 
   const handleChange = (event) => {
-    setUser({ ...user, [event.target.name]: event.target.value })
+    setUser({
+      ...user,
+      [event.target.name]: event.target.value,
+    })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     // Validate user input (optional)
-    if (!user.email || !user.password) {
+    if (!user.name || !user.email || !user.password) {
       console.error('Please fill in all fields.')
       return
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/users/login', {
+      const response = await fetch('http://localhost:8080/api/users/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(user),
       })
 
       if (response.ok) {
         const responseData = await response.json()
-        console.log('Success: You logged in.', responseData)
-
-        // Update userId state only if the response contains a valid id
-        if (responseData.id) {
-          setUserId(responseData.id)
-          console.log(userId)
-          navigate('/') // Assuming '/dashboard' is the route after login
-        } else {
-          console.error('Missing user ID in response data.')
-        }
+        console.log('Success: User Created.')
+        navigate('/')
       } else {
         const errorData = await response.json()
         console.error('Error:', errorData.error)
@@ -49,12 +49,6 @@ export default function Login() {
     }
   }
 
-  // Check if userId is successfully fetched after login
-  useEffect(() => {
-    if (userId) {
-      console.log('User ID:', userId) // Log for verification
-    }
-  }, [userId])
   return (
     <>
       <div>
@@ -64,6 +58,21 @@ export default function Login() {
           <div className={`${Style.loginconainer}`}>
             <h3>Login </h3>
             <form className={`${Style.loginfix}`} onSubmit={handleSubmit}>
+              <div className="form-outline mb-4">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="form-control"
+                  onChange={handleChange}
+                  value={user.name}
+                  required
+                />
+                <label className="form-label" htmlFor="name">
+                  Name
+                </label>
+              </div>
+
               <div className="form-outline mb-4">
                 <input
                   type="email"
