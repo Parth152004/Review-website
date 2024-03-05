@@ -28,7 +28,7 @@ public class movieServiceimpl implements movieService{
     public MovieDTO createMoive(MovieDTO moviedto,Integer userId) {
         User user = this.userrepo.findById(userId).orElseThrow(()->new ResourceNotFoundException("User","Id",userId));
         Movie movie = this.dtoTomovie(moviedto);
-        movie.setMovieimage("Defoult.png");
+        movie.setMovieimage(moviedto.getImage());
         movie.setUser(user);
 
         Movie moive = this.movierepo.save(movie);
@@ -42,7 +42,8 @@ public class movieServiceimpl implements movieService{
 
     @Override
     public List<Movie> getAllMovie() {
-        return null;
+        List<Movie> movies =  this.movierepo.findAll();
+        return movies;
     }
 
     @Override
