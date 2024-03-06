@@ -10,6 +10,7 @@ const Addmovie = () => {
   })
 
   const handleChange = (event) => {
+    console.log(localStorage.getItem('userId'))
     setMovieData({
       ...movieData,
       [event.target.name]: event.target.value,
@@ -20,9 +21,7 @@ const Addmovie = () => {
     event.preventDefault()
     try {
       const response = await fetch(
-        `http://localhost:8080/api/User/${localStorage.getItem(
-          'userId',
-        )}/Movie`,
+        `http://localhost:8080/api/User/${localStorage.getItem('userId')}/Movie`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

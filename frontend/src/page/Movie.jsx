@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import Navbar from '../Component/Navbar'
 import Hero from '../Component/Hero'
 import Style from './Movie.module.css'
@@ -7,6 +8,23 @@ import Rating from '../Component/Rating'
 import { Link, useLocation } from 'react-router-dom'
 
 export default function Movie() {
+  const [movies, setMovies] = useState([])
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:8080/api/User/Movies',
+        )
+        setMovies(response.data)
+      } catch (error) {
+        console.error('Error fetching movies:', error)
+      }
+    }
+
+    fetchMovies()
+  }, [])
+
   return (
     <>
       <Navbar />
@@ -16,48 +34,15 @@ export default function Movie() {
           <Rating />
         </div>
         <div className={`${Style.right}`}>
-          <Link className={`${Style.dec}`} to="/Riviewpage">
-            <Card2
-              heading="Movies"
-              children="plan next movie you want to see in theaters"
-              image="https://wallpapers.com/images/featured/movie-9pvmdtvz4cb0xl37.jpg"
-            />
-          </Link>
-          <Link className={`${Style.dec}`} to="/Riviewpage">
-            <Card2
-              heading="Movies"
-              children="plan next movie you want to see in theaters"
-              image="https://wallpapers.com/images/featured/movie-9pvmdtvz4cb0xl37.jpg"
-            />
-          </Link>
-          <Link className={`${Style.dec}`} to="/Riviewpage">
-            <Card2
-              heading="Movies"
-              children="plan next movie you want to see in theaters"
-              image="https://wallpapers.com/images/featured/movie-9pvmdtvz4cb0xl37.jpg"
-            />
-          </Link>
-          <Link className={`${Style.dec}`} to="/Riviewpage">
-            <Card2
-              heading="Movies"
-              children="plan next movie you want to see in theaters"
-              image="https://wallpapers.com/images/featured/movie-9pvmdtvz4cb0xl37.jpg"
-            />
-          </Link>
-          <Link className={`${Style.dec}`} to="/Riviewpage">
-            <Card2
-              heading="Movies"
-              children="plan next movie you want to see in theaters"
-              image="https://wallpapers.com/images/featured/movie-9pvmdtvz4cb0xl37.jpg"
-            />
-          </Link>
-          <Link className={`${Style.dec}`} to="/Riviewpage">
-            <Card2
-              heading="Movies"
-              children="plan next movie you want to see in theaters"
-              image="https://wallpapers.com/images/featured/movie-9pvmdtvz4cb0xl37.jpg"
-            />
-          </Link>
+          {movies.map((movie) => (
+            <Link key={movie.id} className={`${Style.dec}`} to="/Riviewpage">
+              <Card2
+                heading={movie.name}
+                children={movie.dispcription}
+                image={movie.image}
+              />
+            </Link>
+          ))}
         </div>
       </div>
     </>
