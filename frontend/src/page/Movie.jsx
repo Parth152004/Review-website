@@ -5,10 +5,12 @@ import Hero from '../Component/Hero'
 import Style from './Movie.module.css'
 import Card2 from '../Component/Card2'
 import Rating from '../Component/Rating'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Movie() {
   const [movies, setMovies] = useState([])
+  const [selectedMovie, setSelectedMovie] = useState(null) // State to store selected movie
+  const navigate = useNavigate() // Corrected the variable name to navigate
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -25,23 +27,34 @@ export default function Movie() {
     fetchMovies()
   }, [])
 
+  const handleMovieSelect = (movie) => {
+    setSelectedMovie(movie)
+    console.log('movie:', movie.id)
+    navigate('/Riviewpage', { state: { movie } }) // Passing movie as state to the next page
+  }
+
   return (
     <>
       <Navbar />
-      <Hero heading="Best in Movies " />
+      <Hero heading="Best in Movies" />
       <div className={`container ${Style.contain}`}>
         <div className={`${Style.left}`}>
           <Rating />
         </div>
         <div className={`${Style.right}`}>
           {movies.map((movie) => (
-            <Link key={movie.id} className={`${Style.dec}`} to="/Riviewpage">
-              <Card2
-                heading={movie.name}
-                children={movie.dispcription}
-                image={movie.image}
-              />
-            </Link>
+            <div key={movie.id} className={`${Style.dec}`}>
+              <div
+                className={`${Style.dec}`}
+                onClick={() => handleMovieSelect(movie)} // Using onClick directly here
+              >
+                <Card2
+                  heading={movie.name}
+                  subheading={movie.dispcription}
+                  image={movie.image}
+                />
+              </div>
+            </div>
           ))}
         </div>
       </div>

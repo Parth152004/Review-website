@@ -6,14 +6,16 @@
     width:97%;
     display: flex;
     align-items: center;
-    
+    justify-content: space-between;
 }
 .header{
     margin-left: 20px;
+    margin-right: 50px;
     font-size:larger;
     margin-top: 15px;
     text-decoration: none;
 }
 .rating-bar{
     margin-top: 10px;
+    margin-right: 10px;
 }

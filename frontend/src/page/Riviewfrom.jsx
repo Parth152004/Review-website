@@ -2,11 +2,15 @@ import React, { useState } from 'react'
 import Navbar from '../Component/Navbar'
 import Style from './Login.module.css'
 import '../Component/Rating.css'
+import { useLocation } from 'react-router-dom'
 
 export default function Riviewfrom() {
+  const location = useLocation() // Get location object
+  const { movie } = location.state || {}
   const [rating, setRating] = useState(0)
   const [searchQuery, setSearchQuery] = useState('')
 
+  console.log('movie:', movie.id)
   const handleRatingChange = (value) => {
     setRating(value)
   }
@@ -42,14 +46,14 @@ export default function Riviewfrom() {
               ))}
               <span className="overall-rating">{rating}/5</span>
             </div>
-            <div class="form-outline mb-4">
-              <input type="text" id="form2Example2" class="form-control" />
-              <label class="form-label" for="form2Example2">
+            <div className="form-outline mb-4">
+              <input type="text" id="form2Example2" className="form-control" />
+              <label className="form-label" htmlFor="form2Example2">
                 Discription
               </label>
             </div>
 
-            <button type="button" class="btn btn-dark btn-block mb-4">
+            <button type="button" className="btn btn-dark btn-block mb-4">
               submit
             </button>
           </form>

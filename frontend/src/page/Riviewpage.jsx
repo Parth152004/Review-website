@@ -1,15 +1,22 @@
 import React, { useState } from 'react'
+import './Rivewpage.css' // Assuming CSS file is in the same directory
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Navbar from '../Component/Navbar'
 import Card from '../Component/Card'
 import RatingComponent from '../Component/Rating'
-import './Rivewpage.css'
 import '../Component/Rating.css'
 import CommentComponent from '../Component/Coment'
-import { Link } from 'react-router-dom'
 
 export default function Riviewpage() {
+  const location = useLocation() // Get location object
+  const { movie } = location.state || {} // Access movie data from state (handle missing state)
   const [rating, setRating] = useState(0)
   const [searchQuery, setSearchQuery] = useState('')
+  const navigate = useNavigate()
+
+  if (!movie) {
+    return <div>Movie data not found. Please select a movie.</div>
+  }
 
   const handleRatingChange = (value) => {
     setRating(value)
@@ -26,31 +33,34 @@ export default function Riviewpage() {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value)
   }
+
+  function handleClick(movie) {
+    navigate('/Riviewfrom', { state: { movie } })
+  }
+
   return (
-    <div>
+    <>
       <Navbar />
       <Card
-        heading="Movies"
-        children="plan next movie you want to see in theaters"
-        image="https://wallpapers.com/images/featured/movie-9pvmdtvz4cb0xl37.jpg"
+        heading={movie.name}
+        children={movie.dispcription}
+        image={movie.image}
       />
       <div className="container ">
-        <Link to="/Riviewfrom">
-          <div className="review">
-            <p className="header">Write Review</p>
-            <div className="rating-bar">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  className={`star ${star <= rating ? 'selected' : ''}`}
-                  onClick={() => handleStarClick(star)}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
+        <div className="review" onClick={() => handleClick(movie)}>
+          <p className="header">Write Review</p>
+          <div className="rating-bar">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <span
+                key={star}
+                className={`star ${star <= rating ? 'selected' : ''}`}
+                onClick={() => handleStarClick(star)}
+              >
+                ★
+              </span>
+            ))}
           </div>
-        </Link>
+        </div>
         <div className="m-3">
           <RatingComponent />
         </div>
@@ -62,6 +72,6 @@ export default function Riviewpage() {
           />
         </div>
       </div>
-    </div>
+    </>
   )
 }
