@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import Navbar from '../Component/Navbar'
 import Style from './Login.module.css'
 import '../Component/Rating.css'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function ReviewForm() {
   const location = useLocation() // Get location object
   const { movie } = location.state || {}
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
+  const navigate = useNavigate()
 
   console.log('movie:', movie.id)
 
@@ -47,6 +48,7 @@ export default function ReviewForm() {
       if (response.ok) {
         const responseData = await response.json()
         console.log('Success: Review submitted.', responseData)
+        navigate('/Riviewpage', { state: { movie } })
         // Handle success
       } else {
         const errorData = await response.json()
