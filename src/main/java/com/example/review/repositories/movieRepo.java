@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface movieRepo extends JpaRepository<Movie,Integer> {
     List<Movie> findByUser(User user);
+
 }

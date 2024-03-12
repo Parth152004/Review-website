@@ -2,11 +2,15 @@ package com.example.review.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Movie {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer movieId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "MovieImage",length = 1000)
     private String movieimage;
@@ -20,12 +24,23 @@ public class Movie {
     @ManyToOne
     private User user;
 
-    public Integer getMovieId() {
-        return movieId;
+    @OneToMany(mappedBy = "movie")
+    private List<Review> reviews = new ArrayList<>();
+
+    public List<Review> getReviews() {
+        return reviews;
     }
 
-    public void setMovieId(Integer movieId) {
-        this.movieId = movieId;
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMovieimage() {

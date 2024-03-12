@@ -2,6 +2,7 @@ package com.example.review.contrillers;
 
 
 import com.example.review.entity.Movie;
+import com.example.review.entity.Review;
 import com.example.review.entity.User;
 import com.example.review.payloads.MovieDTO;
 import com.example.review.payloads.userDTO;
@@ -44,9 +45,10 @@ public class movieControler {
     }
 
 
+
     public MovieDTO movieTodto(Movie movie){
         MovieDTO moviedto = new MovieDTO();
-
+        moviedto.setId(movie.getId());
         moviedto.setDispcription(movie.getDiscription());
         moviedto.setName(movie.getMovieName());
         moviedto.setUser(userTodto(movie.getUser()));
@@ -58,7 +60,6 @@ public class movieControler {
 
         movie.setDiscription(moviedto.getDispcription());
         movie.setMovieName(moviedto.getName());
-
         return movie;
     }
     public userDTO userTodto(User user){
