@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Rivewpage.css' // Assuming CSS file is in the same directory
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Navbar from '../Component/Navbar'
@@ -12,12 +12,30 @@ export default function Riviewpage() {
   const { movie } = location.state || {} // Access movie data from state (handle missing state)
   const [rating, setRating] = useState(0)
   const [searchQuery, setSearchQuery] = useState('')
+  const [reviews, setReviews] = useState([])
   const navigate = useNavigate()
 
   if (!movie) {
     return <div>Movie data not found. Please select a movie.</div>
   }
+  console.log(movie.id)
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/api/movies/${movie.id}/reviews`,
+        )
+        const data = await response.json()
+        setReviews(data)
+      } catch (error) {
+        console.error('Error fetching reviews:', error)
+      }
+    }
 
+    fetchReviews()
+  }, [movie.id])
+
+  console.log(reviews)
   const handleRatingChange = (value) => {
     setRating(value)
   }
@@ -64,12 +82,16 @@ export default function Riviewpage() {
         <div className="m-3">
           <RatingComponent />
         </div>
-        <div className="container">
-          <CommentComponent
-            userName="John Doe"
-            rating={4}
-            review="This movie was fantastic! Highly recommended."
-          />
+        <div className="container mt-4">
+          <h2>Reviews</h2>
+          {reviews.map((review) => (
+            <CommentComponent
+              key={review.id}
+              userName={review['user']['name']}
+              rating={review.rating}
+              review={review.comment}
+            />
+          ))}
         </div>
       </div>
     </>

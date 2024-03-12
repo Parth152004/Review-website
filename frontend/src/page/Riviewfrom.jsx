@@ -4,13 +4,14 @@ import Style from './Login.module.css'
 import '../Component/Rating.css'
 import { useLocation } from 'react-router-dom'
 
-export default function Riviewfrom() {
+export default function ReviewForm() {
   const location = useLocation() // Get location object
   const { movie } = location.state || {}
   const [rating, setRating] = useState(0)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [comment, setComment] = useState('')
 
   console.log('movie:', movie.id)
+
   const handleRatingChange = (value) => {
     setRating(value)
   }
@@ -23,8 +24,38 @@ export default function Riviewfrom() {
     }
   }
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value)
+  const handleCommentChange = (e) => {
+    setComment(e.target.value)
+  }
+
+  const handleSubmit = async () => {
+    try {
+      const reviewData = {
+        rating: rating,
+        comment: comment,
+      }
+
+      const response = await fetch(
+        `http://localhost:8080/api/User/${movie['user']['id']}/Movie/${movie['id']}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(reviewData),
+        },
+      )
+
+      if (response.ok) {
+        const responseData = await response.json()
+        console.log('Success: Review submitted.', responseData)
+        // Handle success
+      } else {
+        const errorData = await response.json()
+        console.error('Error:', errorData.error)
+        // Handle error
+      }
+    } catch (error) {
+      console.error('Error:', error.message)
+    }
   }
 
   return (
@@ -47,14 +78,24 @@ export default function Riviewfrom() {
               <span className="overall-rating">{rating}/5</span>
             </div>
             <div className="form-outline mb-4">
-              <input type="text" id="form2Example2" className="form-control" />
+              <input
+                type="text"
+                id="form2Example2"
+                className="form-control"
+                value={comment}
+                onChange={handleCommentChange}
+              />
               <label className="form-label" htmlFor="form2Example2">
-                Discription
+                Description
               </label>
             </div>
 
-            <button type="button" className="btn btn-dark btn-block mb-4">
-              submit
+            <button
+              onClick={handleSubmit}
+              type="button"
+              className="btn btn-dark btn-block mb-4"
+            >
+              Submit
             </button>
           </form>
         </div>
